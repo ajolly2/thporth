@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Headlines</title>
+</head>
+<body>
+  <h1>News Headlines</h1>
+  <ul id="headlineList"></ul>
+
+  <script>
+    // Fetch the JSON file
+    fetch('news.json')
+      .then(response => response.json())
+      .then(data => {
+        const headlineList = document.getElementById('headlineList');
+
+        // Iterate over the JSON data and generate the HTML code for each hyperlink
+        data.forEach(item => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = item.url;
+          link.textContent = item.title;
+
+          listItem.appendChild(link);
+          headlineList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+</body>
+</html>
