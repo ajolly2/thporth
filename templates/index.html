@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Schedule</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            color: black;
+            padding: 20px;
+        }
+        .schedule-item {
+            margin-bottom: 10px;
+            border-bottom: 1px solid lightgray;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Sports Schedule</h2>
+    <ul>
+        {% for event in schedule %}
+            <li class="schedule-item"><strong>{{ event.title }}</strong> - {{ event.time }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
