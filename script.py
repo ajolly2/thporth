@@ -4,17 +4,17 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-# ✅ Example Scraper Function (Modify as Needed)
+# ✅ Scraper function (update URL & selectors as needed)
 def scrape_sports_schedule():
-    url = "https://www.livesportsontv.com"  # Replace with actual sports site URL
+    url = "https://www.livesportsontv.com/"  # Replace with the real sports schedule URL
     headers = {"User-Agent": "Mozilla/5.0"}  # Mimic a real browser
 
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
-        return "Error fetching data"
+        return [{"title": "Error fetching data", "time": "Try again later"}]
 
     soup = BeautifulSoup(response.text, "html.parser")
-    events = soup.find_all("div", class_="event")  # Adjust selector to match the actual site
+    events = soup.find_all("div", class_="event")  # Adjust to match the actual site
 
     schedule = []
     for event in events:
@@ -27,7 +27,7 @@ def scrape_sports_schedule():
 @app.route("/")
 def home():
     sports_schedule = scrape_sports_schedule()
-    return render_template("index.html", schedule=sports_schedule)  # Pass data to HTML template
+    return render_template("index.html", schedule=sports_schedule)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)  # Makes it accessible on Render
